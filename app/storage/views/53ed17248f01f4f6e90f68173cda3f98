@@ -1,0 +1,149 @@
+<?php $__env->startSection('title'); ?>
+@parent
+ Dashboard - Users Managament
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('head'); ?>
+@parent
+
+<?php echo HTML::style('assets/dropzone/css/dropzone.css'); ?> 
+<?php $__env->stopSection(); ?>
+<?php /* Content */ ?>
+<?php $__env->startSection('content'); ?>
+      <section id="main-content">
+          <section class="wrapper">
+<h3><i class="fa fa-angle-right"></i>  <?php echo trans('Edit User Profile'); ?></h3>
+         	<!-- BASIC FORM ELELEMNTS -->
+	<div class="row mt">
+          		<div class="col-lg-12">
+                  <div  class="form-panel">
+	<?php echo Form::open(array(
+        'action' => array('UserController@update', $user->id), 
+        'method' => 'put',
+        'class'=>'form-horizontal style-form', 
+        'role' => 'form'
+        )); ?>
+
+               <h4 id="title" class="mb"><i class="fa fa-angle-right"></i> Personal Info</h4>
+        <div class="form-group <?php echo ($errors->has('firstName')) ? 'has-error' : ''; ?>" for="firstName">
+            <?php echo Form::label('edit_firstName', trans('First Name'), array('class' => 'col-sm-2 control-label')); ?>
+
+            <div class="col-sm-10">
+              <?php echo Form::text('firstName', $user->first_name, array('class' => 'form-control', 'placeholder' => trans('First Name'), 'id' => 'edit_firstName')); ?>
+
+<span class="help-block">This info is displayed only to you</span>
+</div>
+            <?php echo ($errors->has('firstName') ? $errors->first('firstName') : ''); ?>    			
+    	</div>
+        <div class="form-group <?php echo ($errors->has('lastName')) ? 'has-error' : ''; ?>" for="lastName">
+            <?php echo Form::label('edit_lastName', trans('Last Name'), array('class' => 'col-sm-2 control-label')); ?>
+
+            <div class="col-sm-10">
+              <?php echo Form::text('lastName', $user->last_name, array('class' => 'form-control', 'placeholder' => trans('First Name'), 'id' => 'edit_lastName')); ?>
+
+<span class="help-block">This info is displayed only to you</span>
+            </div>
+            <?php echo ($errors->has('lastName') ? $errors->first('lastName') : ''); ?>                
+        </div>
+    <div class="form-group <?php echo ($errors->has('Email')) ? 'has-error' : ''; ?>" for="email">
+            <?php echo Form::label('edit_email', trans('Email'), array('class' => 'col-sm-2 control-label')); ?>
+
+            <div class="col-sm-10">
+              <?php echo Form::text('email', $user->email, array('class' => 'form-control', 'placeholder' => trans('Email'), 'id' => 'edit_email')); ?>
+
+<span class="help-block">This info is displayed only to you</span>
+</div>
+            <?php echo ($errors->has('email') ? $errors->first('email') : ''); ?>    			
+    	</div>
+        <?php if(Sentry::getUser()->hasAccess('admin')): ?>
+<h4 id="title" class="mb"><i class="fa fa-angle-right"></i> Membership Permissions</h4>
+
+        <div class="form-group">
+            <?php echo Form::label('edit_memberships', trans('Change Permissions'), array('class' => 'col-sm-2 control-label')); ?>
+
+            <div class="col-sm-10">
+                <?php foreach($allGroups as $group): ?>
+                <div style="padding: 3%;" > <label class="checkbox">
+                        <input type="checkbox" name="groups[<?php echo $group->id; ?>]" value='1'<?php echo (in_array($group->name, $userGroups) ? 'checked="checked"' : ''); ?> ><span style="font-size: 22px;padding: 2%;" class="badge bg-theme">  <?php echo $group->name; ?></span>
+                    </label></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php endif; ?>
+<br>
+       <div style="overflow: hidden;width: 100%;" class="form-group">
+               <?php echo Form::label('image1', 'Profile Image',array('class' => 'col-sm-2 col-sm-2 control-label')); ?>
+
+                              <div class="col-sm-10">
+                                     <?php echo Form::file('image1', array('class' => 'form-control dz-default dz-message')); ?>
+
+ <span class="help-block">A block of help text thaet breaks onto a new line and may extend beyond one line.</span>
+                            </div>
+                          
+          
+          </div>
+        <div class="form-group">
+                <?php echo Form::hidden('id', $user->id); ?>
+
+                <div style="position: fixed;bottom: 100px;right: 80px;"> <?php echo Form::submit(trans('Save Changes'), array('class'=>'btn btn-primary btn-lg')); ?></div>
+      </div>
+    <?php echo Form::close(); ?>
+
+
+
+<h4 style="color: lightcoral;" id="title" class="mb"><i class="fa fa-angle-right"></i><?php echo trans('Pasword Change'); ?></h4>
+    <?php echo Form::open(array(
+        'action' => array('UserController@change', $user->id), 
+        'class' => 'form-inline', 
+        'role' => 'form'
+        )); ?>
+
+        <div style="margin-bottom: 20%;">
+        <div  class="form-group <?php echo $errors->has('oldPassword') ? 'has-error' : ''; ?>">
+        	<?php echo Form::label('oldPassword', trans('Old Password'), array('class' => 'sr-only')); ?>
+
+			<?php echo Form::password('oldPassword', array('class' => 'form-control', 'placeholder' => trans('oldpassword'))); ?>
+
+    	</div>
+
+        <div class="form-group <?php echo $errors->has('newPassword') ? 'has-error' : ''; ?>">
+        	<?php echo Form::label('newPassword', trans('New Password'), array('class' => 'sr-only')); ?>
+
+            <?php echo Form::password('newPassword', array('class' => 'form-control', 'placeholder' => trans('password'))); ?>
+
+    	</div>
+
+    	<div class="form-group <?php echo $errors->has('newPassword_confirmation') ? 'has-error' : ''; ?>">
+        	<?php echo Form::label('newPassword_confirmation', trans('New Password Confirmation'), array('class' => 'sr-only')); ?>
+
+            <?php echo Form::password('newPassword_confirmation', array('class' => 'form-control', 'placeholder' => trans('confirm-password'))); ?>
+
+    	</div>
+
+        <?php echo Form::submit(trans('Change Password'), array('class' => 'btn btn-danger')); ?>
+
+	        	
+      <?php echo ($errors->has('oldPassword') ? '<br />' . $errors->first('oldPassword') : ''); ?>
+
+      <?php echo ($errors->has('newPassword') ?  '<br />' . $errors->first('newPassword') : ''); ?>
+
+      <?php echo ($errors->has('newPassword_confirmation') ? '<br />' . $errors->first('newPassword_confirmation') : ''); ?>
+
+
+      <?php echo Form::close(); ?>
+
+  </div>
+                  </div>
+
+                        </div>
+
+</section><!--/wrapper -->
+      </section><!-- /MAIN CONTENT -->
+            <!--main content end-->
+  </section>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+@parent
+<?php echo HTML::script('assets/dropzone/dropzone.js'); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

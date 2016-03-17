@@ -1,0 +1,74 @@
+<?php $__env->startSection('title'); ?>
+@parent
+ Dashboard - Users Managament
+<?php $__env->stopSection(); ?>
+<?php /* Content */ ?>
+<?php $__env->startSection('content'); ?>
+      <section id="main-content">
+          <section class="wrapper">
+              <h3><i class="fa fa-angle-right"></i><?php echo trans('Users Managament'); ?>:</h3>
+              <div class="addUser">
+                  <a href="<?php echo URL::to('backend/dashboard/users/create'); ?>" class="btn btn-success fileinput-button">
+					        <i class="glyphicon glyphicon-plus"></i>
+					        <span>Add User</span>
+					        </a>
+              </div>
+
+                                <table class="table table-striped table-bordered">
+			<thead>
+				<th><i class="fa fa-envelope-o"></i> <?php echo trans('User Email'); ?></th>
+				<th><i class=" fa fa-edit"></i> <?php echo trans('User Status'); ?></th>
+                                <th style="text-align: center;" colspan="4"><i class="fa fa-cogs"></i> <?php echo trans('User Options'); ?></th>
+			</thead>
+			<tbody>
+
+<?php foreach($users as $user): ?>
+				 	<tr>
+                                            <td style="font-weight: bold;font-size: 20px;"> <a href="<?php echo action('UserController@show', array($user->id)); ?>">
+       <?php if(($user->first_name)&&($user->last_name)): ?> <?php echo $user->first_name; ?>  <?php echo $user->last_name; ?> <?php else: ?><?php echo $user->email; ?><?php endif; ?></a> </td>
+                                                                                           
+                                                                                           
+						<td style="font-weight: bold;font-size: 20px;" ><?php if($user->status=='Active'): ?>
+							<?php echo trans('Actived User'); ?>
+
+						 <?php else: ?>
+						 	<?php echo trans('Disabled User'); ?>
+
+						 <?php endif; ?>
+						 </td>
+							
+						<td>
+                                                    <button style="margin-right:5%" class="btn btn-theme" type="button" onClick="location.href='<?php echo action('UserController@edit', array($user->id)); ?>'"><i class="fa fa-cog"></i>  <?php echo trans('Edit'); ?></button> 
+                                                                                                    </td>
+                                                <td>
+							<?php if($user->status != 'Suspended'): ?>
+								<button style="margin-right:5%" class="btn btn-warning" type="button" onClick="location.href='<?php echo route('suspendUserForm', array($user->id)); ?>'"><i class="fa fa-tasks"></i>  <?php echo trans('Suspend'); ?></button>
+                                                                                                                </td>
+                                                <td>
+							<?php else: ?>
+								<button style="margin-right:5%" class="btn btn-warning" type="button" onClick="location.href='<?php echo action('UserController@unsuspend', array($user->id)); ?>'"><i class="fa fa-tasks"></i>  <?php echo trans('Unuspend'); ?></button>
+                                                                                                                </td>
+                                                <td>
+							<?php endif; ?>
+							<?php if($user->status != 'Banned'): ?>
+								<button style="margin-right:5%" class="btn btn-theme04" type="button" onClick="location.href='<?php echo action('UserController@ban', array($user->id)); ?>'"><i class="fa fa-bullhorn"></i>  <?php echo trans('Ban'); ?></button>                                                 
+                                                </td>
+                                                <td>
+							<?php else: ?>
+								<button style="margin-right:5%" class="btn btn-theme04" type="button" onClick="location.href='<?php echo action('UserController@unban', array($user->id)); ?>'"><i class="fa fa-bullhorn"></i>  <?php echo trans('Unban'); ?></button>                                                 
+                                                </td>
+                                                                                                <td>
+							<?php endif; ?>
+							<button class="btn btn-danger" href="<?php echo action('UserController@destroy', array($user->id)); ?>" data-token="<?php echo Session::getToken(); ?>" data-method="delete"><i class="fa fa-trash-o "></i>  <?php echo trans('Delete'); ?></button>
+                                </td>
+					</tr>                        
+				<?php endforeach; ?> 
+			</tbody>
+		</table>
+</section><!--/wrapper -->
+      </section><!-- /MAIN CONTENT -->
+            <!--main content end-->
+  </section>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

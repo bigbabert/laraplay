@@ -1,0 +1,131 @@
+<?php if(Sentry::check()): ?>
+<?php $__env->startSection('title'); ?>
+@parent
+ Dashboard - Users Managament
+<?php $__env->stopSection(); ?>
+<?php /* Content */ ?>
+<?php $__env->startSection('content'); ?>
+      <section id="main-content">
+          <section class="wrapper">
+<h3><i class="fa fa-angle-right"></i>  <?php echo trans('Create User Profile'); ?> </h3>
+         	<!-- BASIC FORM ELELEMNTS -->
+	<div class="row mt">
+          		<div class="col-lg-12">
+                  <div  class="form-panel">
+        <?php echo Form::open(array('action' => 'UserController@store','class'=>'form-horizontal style-form')); ?>
+
+
+        
+            <div class="form-group <?php echo ($errors->has('email')) ? 'has-error' : ''; ?>">
+                <?php echo Form::text('email', null, array('class' => 'form-control', 'placeholder' => trans('User@email.com'))); ?>
+
+                <?php echo ($errors->has('email') ? $errors->first('email') : ''); ?>
+
+            </div>
+
+            <div class="form-group <?php echo ($errors->has('password')) ? 'has-error' : ''; ?>">
+        	<?php echo Form::label('password', trans('Password'), array('class' => 'sr-only')); ?>                
+                <?php echo Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')); ?>
+
+                <?php echo ($errors->has('password') ?  $errors->first('password') : ''); ?>
+
+            </div>
+
+            <div class="form-group <?php echo ($errors->has('password_confirmation')) ? 'has-error' : ''; ?>">
+         	<?php echo Form::label('password_confirmation', trans('Password Confirmation'), array('class' => 'sr-only')); ?>                
+               <?php echo Form::password('password_confirmation', array('class' => 'form-control', 'placeholder' => 'Confirm Password')); ?>
+
+                <?php echo ($errors->has('password_confirmation') ?  $errors->first('password_confirmation') : ''); ?>
+
+            </div>
+            
+            <?php echo Form::submit('Register', array('class' => 'btn btn-primary')); ?>
+
+            
+        <?php echo Form::close(); ?>
+
+  </div>
+                  </div>
+
+                        </div>
+
+</section><!--/wrapper -->
+      </section><!-- /MAIN CONTENT -->
+            <!--main content end-->
+  </section>
+  <?php $__env->stopSection(); ?>
+  <?php else: ?>
+<?php $__env->startSection('title'); ?>
+@parent
+ Dashboard - Users Registration
+<?php $__env->stopSection(); ?>
+<?php /* Content */ ?>
+<?php $__env->startSection('content'); ?> 
+
+
+<div   id="register-page">
+
+        <?php echo Form::open(array('action' => 'UserController@store', 'method' => 'post', 'class' => 'form-login')); ?>
+
+ <a href="javascript: window.history.go(-2)" ><div class="gritter-close" style="display: block;position: relative;float: right;left: 3.5%;top:-7px;"></div></a>
+       <h2 class="form-login-heading"><?php echo trans('Register User Profile'); ?></h2>                                                                    
+                      <div class="login-wrap">
+                            <label class="checkbox">
+                         <span>    		
+            <div class="form-group <?php echo ($errors->has('email')) ? 'has-error' : ''; ?>">
+                <?php echo Form::text('email', null, array('class' => 'form-control', 'placeholder' => trans('User@email.com'))); ?>
+
+                <?php echo ($errors->has('email') ? $errors->first('email') : ''); ?>
+
+            </div>
+                        </span>
+                          </label>
+                            <label class="checkbox">
+                         <span>    		
+            <div class="form-group <?php echo ($errors->has('password')) ? 'has-error' : ''; ?>">
+        	<?php echo Form::label('password', trans('Password'), array('class' => 'sr-only')); ?>                
+                <?php echo Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')); ?>
+
+                <?php echo ($errors->has('password') ?  $errors->first('password') : ''); ?>
+
+            </div>
+                        </span>
+                          </label>
+                           <label class="checkbox">
+                         <span>    		
+           <div class="form-group <?php echo ($errors->has('password_confirmation')) ? 'has-error' : ''; ?>">
+         	<?php echo Form::label('password_confirmation', trans('Password Confirmation'), array('class' => 'sr-only')); ?>                
+               <?php echo Form::password('password_confirmation', array('class' => 'form-control', 'placeholder' => 'Confirm Password')); ?>
+
+                <?php echo ($errors->has('password_confirmation') ?  $errors->first('password_confirmation') : ''); ?>
+
+            </div>
+                        </span>
+                          </label>                            
+                <span></span>
+                            <?php echo Form::submit(trans('Register'), array('class' => 'btn btn-primary btn-theme btn-block')); ?>
+
+       <hr>
+		        
+                            <div class="login-social-link centered">
+		            <p>if you are registered come back to Login Page</p>
+                            <a class="btn btn-theme03" href="<?php echo URL::to('/login'); ?>">Login</a>
+		                
+		            </div>
+		        </div>
+            <?php echo Form::close(); ?>
+
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+@parent
+
+    <?php echo HTML::script('assets/js/jquery.backstretch.min.js'); ?>    
+    <script>
+        $.backstretch("assets/img/login-bg.jpg", {speed: 500});
+    </script>
+<?php endif; ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

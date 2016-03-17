@@ -1,0 +1,74 @@
+<?php if(Sentry::check()): ?>
+<!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+              
+              	  <p class="centered"><a href="<?php echo URL::to('backend/dashboard'); ?>"><img src="<?php echo asset('assets/img/ui-sam.jpg'); ?>" class="img-circle" width="60"></a></p>
+                  <h5 class="centered">Welcome in AlterApp Dashboard</h5>
+                  <h5  class="centered"><div class="line"></div></h5>
+                  <?php $user = Sentry::getUser(); ?>
+                  <a href="<?php echo action('UserController@show', array($user->id)); ?>"> <h5 class="centered">       <?php if(($user->first_name)&&($user->last_name)): ?> <?php echo $user->first_name; ?>  <?php echo $user->last_name; ?> <?php else: ?><?php echo $user->email; ?><?php endif; ?></h5></a>				
+             	  <li class="mt">
+                      <a class="<?php echo Request::is( 'backend/dashboard') ? 'active' : ''; ?>" href="<?php echo URL::to('backend/dashboard'); ?>">
+                          <i class="fa fa-dashboard"></i>
+                          <span>Dashboard</span>
+                      </a>
+                  </li>	
+                                    <?php if(Sentry::getUser()->hasAccess('admin')): ?>
+                  <li class="sub-menu">
+                    <a class="<?php echo Request::is('backend/dashboard/frontend-settings') ? 'active' : ''; ?> <?php echo Request::is( 'backend/dashboard/frontend-settings/create') ? 'active' : ''; ?> <?php echo Request::is( 'backend/dashboard/frontend-settings/12') ? 'active' : ''; ?>"  href="javascript:;" >
+                          <i class="fa fa-desktop"></i>
+                          <span >Frontend Settings</span>
+                      </a>
+                     <ul class="sub">
+                          <li><a  href="<?php echo URL::to('backend/dashboard/frontend-settings/'); ?>">Manage Settings</a></li>
+                          <li><a class="<?php echo Request::is( 'backend/dashboard/frontend-settings/create') ? 'active' : ''; ?>" href="<?php echo URL::to('backend/dashboard/frontend-settings/create'); ?>">Create your Settings</a></li>
+                          <li><a class="<?php echo Request::is( 'backend/dashboard/frontend-settings/12') ? 'active' : ''; ?>" href="<?php echo URL::to('backend/dashboard/frontend-settings/12'); ?>">View Default Settings</a></li>                         
+                      </ul>
+                  </li>                                  
+                  <?php else: ?>
+                  <?php endif; ?>
+                  <?php if(Sentry::getUser()->hasAccess('admin')): ?>
+                  <li class="sub-menu">
+                      <a class="<?php echo Request::is('backend/dashboard/users') ? 'active' : ''; ?>" href="<?php echo URL::to('backend/dashboard/users'); ?>" >
+                          <i class="fa fa-user"></i>
+                          <span>Users Managament</span>
+                      </a>                      
+                  </li>
+                  <?php else: ?>
+                  <li class="sub-menu">
+                      <a class="<?php echo Request::is('backend/dashboard/users/{id}') ? 'active' : ''; ?>" href="<?php echo action('UserController@show', array($user->id)); ?>" >
+                          <i class="fa fa-user"></i>
+                          <span>User Profile</span>
+                      </a>                      
+                  </li>
+                                    <li class="sub-menu">
+                      <a class="<?php echo Request::is('backend/dashboard/users/{id}') ? 'active' : ''; ?>" href="<?php echo action('UserController@edit', array($user->id)); ?>" >
+                                                    <i class="fa fa-user-md"></i>
+                                                    <span>Edit My Profile</span>
+                      </a>                      
+                  </li>
+                  <?php endif; ?>
+                  <?php if(Sentry::getUser()->hasAccess('admin')): ?>
+                  <li class="sub-menu">
+                      <a class="<?php echo Request::is('backend/dashboard/groups') ? 'active' : ''; ?>" href="<?php echo URL::to('backend/dashboard/groups'); ?>" >
+                          <i class="fa fa-users"></i>
+                          <span>Groups Managament</span>
+                      </a>                      
+                  </li>
+                  <?php else: ?>
+                  <?php endif; ?>
+                  <li class="sub-menu">
+                      <a class="<?php echo Request::is('backend/dashboard/barcode-generator') ? 'active' : ''; ?>" href="<?php echo URL::to('backend/dashboard/barcode-generator'); ?>" >
+                          <i class="fa fa-shopping-cart"></i>
+                          <span>Products Managament</span>
+                      </a>
+                  </li>
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+ 
+      </aside>
+<?php endif; ?>

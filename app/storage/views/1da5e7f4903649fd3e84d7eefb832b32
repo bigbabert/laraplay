@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>
+<?php $__env->startSection('title'); ?>
+AlterApp
+<?php echo $__env->yieldSection(); ?>
+	</title>
+<?php $__env->startSection('head'); ?>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap core CSS -->
+   <?php echo HTML::style('assets/css/bootstrap.css'); ?>
+
+    <!--external css-->
+   <?php echo HTML::style('assets/font-awesome/css/font-awesome.css'); ?>
+
+   <?php echo HTML::style('assets/js/gritter/css/jquery.gritter.css'); ?>    
+    <!-- Custom styles for this template -->
+   <?php echo HTML::style('assets/css/style.css'); ?>
+
+   <?php echo HTML::style('assets/css/style-responsive.css'); ?>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <?php echo HTML::script('https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'); ?>
+
+        <?php echo HTML::script('https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'); ?>
+
+    <![endif]-->
+<?php echo $__env->yieldSection(); ?>
+  </head>
+  <body onload="getTime()">
+      <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+      <!--header start-->
+      <?php $__env->startSection('header'); ?>
+      <?php echo $__env->make('backend.layouts.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+      <?php echo $__env->yieldSection(); ?>    
+      <!--header end-->
+      
+      <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+      <?php $__env->startSection('sidebar'); ?>
+      <?php echo $__env->make('backend.layouts.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+      <?php echo $__env->yieldSection(); ?>
+      <!--sidebar end-->
+      
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+      <!--main content start-->
+     
+      <?php echo $__env->yieldContent('content'); ?>
+      <!-- /MAIN CONTENT -->
+      <!--footer start-->
+      <?php $__env->startSection('footer'); ?>
+      <?php echo $__env->make('backend.layouts.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+      <?php echo $__env->yieldSection(); ?>
+      <!--footer end-->
+     <?php $__env->startSection('scripts'); ?> 
+    <!-- js placed at the end of the document so the pages load faster -->
+    <?php echo HTML::script('assets/js/jquery.js'); ?>
+
+    <?php echo HTML::script('assets/js/jquery-1.9.1.min.js'); ?>
+
+    <?php echo HTML::script('assets/js/bootstrap.min.js'); ?>
+
+    <?php echo HTML::script('assets/js/jquery.dcjqaccordion.2.7.js'); ?>
+
+    <?php echo HTML::script('assets/js/jquery.scrollTo.min.js'); ?>
+
+    <?php echo HTML::script('assets/js/jquery.nicescroll.js'); ?>
+
+        <!--common script for all pages-->
+        <?php echo HTML::script('assets/js/gritter/js/jquery.gritter.js'); ?>
+
+    <?php echo HTML::script('assets/js/common-scripts.js'); ?>
+
+    <script>
+        function getTime()
+        {
+            var today=new Date();
+            var h=today.getHours();
+            var m=today.getMinutes();
+            var s=today.getSeconds();
+            // add a zero in front of numbers<10
+            m=checkTime(m);
+            s=checkTime(s);
+            document.getElementById('showtimeDash').innerHTML=h+":"+m+":"+s;
+            t=setTimeout(function(){getTime()},500);
+        }
+
+        function checkTime(i)
+        {
+            if (i<10)
+            {
+                i="0" + i;
+            }
+            return i;
+        }
+    </script>
+     <?php echo $__env->yieldSection(); ?>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<?php $__env->startSection('title'); ?>
+@parent
+ Dashboard - Groups Managament
+<?php $__env->stopSection(); ?>
+<?php /* Content */ ?>
+<?php $__env->startSection('content'); ?>
+      <section id="main-content">
+          <section class="wrapper">
+<h3><i class="fa fa-angle-right"></i>  <?php echo trans('Create Group'); ?></h3>
+         	<!-- BASIC FORM ELELEMNTS -->
+	<div class="row mt">
+          		<div class="col-lg-12">
+                  <div  class="form-panel">
+	<?php echo Form::open(array('action' => 'GroupController@store','class'=>'form-horizontal style-form')); ?>
+
+        <div class="form-group <?php echo ($errors->has('name')) ? 'has-error' : ''; ?>">
+            <?php echo Form::text('name', null, array('class' => 'form-control', 'placeholder' => trans('Group Name'))); ?>
+
+            <?php echo ($errors->has('name') ? $errors->first('name') : ''); ?>
+
+        </div>
+
+        <div class="form-group">
+         <?php echo Form::label(trans('Group Permissions')); ?>           
+            <label class="checkbox-inline">
+                <span>  <?php echo Form::checkbox('adminPermissions', 1); ?> Admin</span>
+            </label>
+            <label class="checkbox-inline">
+                <span>  <?php echo Form::checkbox('userPermissions', 1); ?> User</span>
+            </label>
+
+        </div>
+
+        <?php echo Form::submit(trans('Create Group'), array('class' => 'btn btn-primary')); ?>
+
+
+    <?php echo Form::close(); ?>
+
+  </div>
+                  </div>
+
+                        </div>
+
+</section><!--/wrapper -->
+      </section><!-- /MAIN CONTENT -->
+            <!--main content end-->
+  </section>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

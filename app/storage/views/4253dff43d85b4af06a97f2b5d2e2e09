@@ -1,0 +1,68 @@
+<?php $__env->startSection('title'); ?>
+@parent
+| Login
+<?php $__env->stopSection(); ?>
+
+<?php /* Content */ ?>
+<?php $__env->startSection('content'); ?>
+<div style="display: block;"  id="login-page">
+
+        <?php echo Form::open(array('action' => 'SessionController@store', 'class' => 'form-login')); ?>
+
+ <a href="javascript:history.back()" ><div class="gritter-close" style="display: block;position: relative;float: right;left: 3.5%;top:-7px;"></div></a>
+<h2 class="form-login-heading">sign in now</h2>
+                        <div class="login-wrap">
+                            <label class="checkbox">
+                         <span>
+            <div class="form-group <?php echo ($errors->has('email')) ? 'has-error' : ''; ?>">
+                <?php echo Form::text('email', null, array('class' => 'form-control', 'placeholder' => trans('email'), 'autofocus')); ?>
+
+                <?php echo ($errors->has('email') ? $errors->first('email') : ''); ?>
+
+            </div>
+                        </span>
+                          </label>                    
+                            <label class="checkbox">
+                            <span>
+            <div class="form-group <?php echo ($errors->has('password')) ? 'has-error' : ''; ?>">
+                <?php echo Form::password('password', array('class' => 'form-control', 'placeholder' => trans('password'))); ?>
+
+                <?php echo ($errors->has('password') ?  $errors->first('password') : ''); ?>
+
+            </div>
+                         </span>
+                          </label>                    
+                            <label class="checkbox">
+                                <span style="padding-left: 10%;padding-top: 2.7%;" class="pull-left">
+                                    <div style="display: none;"><?php echo Form::checkbox('rememberMe', 'rememberMe'); ?> <?php echo trans('Remember'); ?>?</div>
+                                </span>
+		                <span class="pull-right">
+                                    <a class="btn btn-link" href="<?php echo route('forgotPasswordForm'); ?>"> Forgot Password?</a>
+		                </span>
+ 		                                               
+		            </label>
+                            <span></span>
+                            <?php echo Form::submit(trans('Login'), array('class' => 'btn btn-primary btn-theme btn-block')); ?>
+
+       <hr>
+		        <div class="login-social-link centered">
+                            <a style="margin-bottom: 2%;" class="btn btn-theme03" href="<?php echo URL::to('/register'); ?>">Register</a>
+		            <p>or Continue to <?php echo $frontends->title; ?></p>
+                            <a class="btn btn-theme03" href="<?php echo URL::to('/'); ?>"><?php echo $frontends->title; ?></a>
+		                
+		            </div>
+		        </div>
+            <?php echo Form::close(); ?>
+
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+@parent
+
+    <?php echo HTML::script('assets/js/jquery.backstretch.min.js'); ?>    
+    <script>
+        $.backstretch("assets/img/login-bg.jpg", {speed: 500});
+    </script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

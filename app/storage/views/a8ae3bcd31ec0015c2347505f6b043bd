@@ -1,0 +1,28 @@
+<section id="skeletonwidget">
+    <div class="container">
+            <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="error_detail_1"><h2 class="sign_title"><?php echo $frontends->skeletonTitle; ?></h2></div>
+                    <hr class="star-primary">
+                </div>
+        <div class="skeletainer">
+		<div class="one-third column">
+	 <img src="<?php echo asset($frontends->portfolioImage1); ?>" class="img-responsive" alt="">
+         <p></p>
+			<p><?php echo $frontends->skeleton1; ?></p>
+		</div>
+		<div class="one-third column">
+         <img src="<?php echo asset($frontends->portfolioImage2); ?>" class="img-responsive" alt="">
+         <p></p>
+			<p><?php echo $frontends->skeleton2; ?></p>
+		</div>
+		<div class="one-third column">
+	 <img src="<?php echo asset($frontends->portfolioImage3); ?>" class="img-responsive" alt="">
+         <p></p>
+			<p><?php echo $frontends->skeleton3; ?></p>
+		</div>
+	</div><!-- skeletainer -->
+        </div>
+        </div>
+        </div>
+    </section>
